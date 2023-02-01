@@ -206,6 +206,11 @@ class NBViewer(Application):
         help="The Tornado handler to use for viewing directory containing all of a user's Gists",
     ).tag(config=True)
 
+    gitlab_handler = Unicode(
+        default_value="nbviewer.providers.gitlab.handlers.GitlabHandler",
+        help="The Tornado handler to use for viewing notebooks in a GitLab instance"
+    ).tag(config=True)
+
     answer_yes = Bool(
         default_value=False,
         help="Answer yes to any questions (e.g. confirm overwrite).",
@@ -634,6 +639,7 @@ class NBViewer(Application):
             local_handler=self.local_handler,
             url_handler=self.url_handler,
             user_gists_handler=self.user_gists_handler,
+            gitlab_handler=self.gitlab_handler,
         )
         handler_kwargs = {
             "handler_names": handler_names,
